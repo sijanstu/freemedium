@@ -114,4 +114,59 @@ public class Controller {
         System.out.println("https://medium.com" + query);
         return "redirect:/api/search?query=https://medium.com" +query;
     }
+
+
+    //return total memory, free memory and cunsumed memory in MB HTML Pie
+    @GetMapping("/memory")
+    public String getMemory() {
+        Runtime runtime = Runtime.getRuntime();
+        long totalMemory = runtime.totalMemory()/1024/1024;
+        long freeMemory = runtime.freeMemory()/1024/1024;
+        long consumedMemory = totalMemory - freeMemory;
+        consumedMemory = consumedMemory < 0 ? 0 : consumedMemory;
+        return "<!DOCTYPE html>\n" +
+                "<html lang=\"en\">\n" +
+                "<head>\n" +
+                "    <title>Memory</title>\n" +
+                "    <meta charset=\"UTF-8\">\n" +
+                "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
+                "</head>\n" +
+                "<body>\n" +
+                "<canvas id=\"myChart\" width=\"200\" height=\"200\"></canvas>\n" +
+                "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js\"></script>\n" +
+                "<script>var ctx = document.getElementById('myChart').getContext('2d');\n" +
+                "var myChart = new Chart(ctx, {\n" +
+                "    type: 'pie',\n" +
+                "    data: {\n" +
+                "        labels: ['Total Memory', 'Free Memory', 'Consumed Memory'],\n" +
+                "        datasets: [{\n" +
+                "            label: 'Memory',\n" +
+                "            data: [" + totalMemory + ", " + freeMemory + ", " + consumedMemory + "],\n" +
+                "            backgroundColor: [\n" +
+                "                'rgba(255, 99, 132, 0.2)',\n" +
+                "                'rgba(54, 162, 235, 0.2)',\n" +
+                "                'rgba(255, 206, 86, 0.2)'\n" +
+                "            ],\n" +
+                "            borderColor: [\n" +
+                "                'rgba(255, 99, 132, 1)',\n" +
+                "                'rgba(54, 162, 235, 1)',\n" +
+                "                'rgba(255, 206, 86, 1)'\n" +
+                "            ],\n" +
+                "            borderWidth: 1\n" +
+                "        }]\n" +
+                "    },\n" +
+                "    options: {\n" +
+                "        scales: {\n" +
+                "            yAxes: [{\n" +
+                "                ticks: {\n" +
+                "                    beginAtZero: true\n" +
+                "                }\n" +
+                "            }]\n" +
+                "        }\n" +
+                "    }\n" +
+                "});\n" +
+                "</script>\n" +
+                "</body>\n" +
+                "</html>";
+    }
 }
