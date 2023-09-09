@@ -39,7 +39,7 @@ public class Controller {
                 "                </div>\n" +
                 "                <input type=\"text\" id=\"simple-search\"\n" +
                 "                       class=\"bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500\"\n" +
-                "                       placeholder=\"Search branch name...\" required>\n" +
+                "                       placeholder=\"Search url...\" required>\n" +
                 "            </div>\n" +
                 "            <button type=\"submit\"\n" +
                 "                    class=\"p-2.5 ml-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800\">\n" +
@@ -57,7 +57,7 @@ public class Controller {
                 "<div id=\"content\" class=\"flex-1 overflow-auto h-screen w-full\">\n" +
                 "    <div id=\"welcome-message\">\n" +
                 "        <h2 class=\"text-2xl font-semibold mb-2\">Welcome to Free Medium!</h2>\n" +
-                "        <p class=\"text-gray-700 dark:text-gray-400\">Start your search by entering a branch name above.</p>\n" +
+                "        <p class=\"text-gray-700 dark:text-gray-400\">Start your search by entering a url above.</p>\n" +
                 "    </div>\n" +
                 "    <div id=\"loading-screen\" class=\"hidden flex items-center justify-center h-screen\">\n" +
                 "        <div id=\"spinner\"></div>\n" +
