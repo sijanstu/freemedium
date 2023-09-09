@@ -81,9 +81,7 @@ public class Controller {
                 "        loadingScreen.classList.remove('hidden');\n" +
                 "        const searchTerm = document.getElementById('simple-search').value;\n" +
                 "        try {\n" +
-                "            //create iframe element and set attributes\n" +
                 "            const iframe = document.createElement('iframe');\n" +
-                "            //`./api/search?query=${encodeURIComponent(searchTerm)}`\n" +
                 "            iframe.src = `./api/search?query=${encodeURIComponent(searchTerm)}`;\n" +
                 "            iframe.width = '100%';\n" +
                 "            iframe.height = '100%';\n" +
@@ -91,31 +89,19 @@ public class Controller {
                 "            iframe.allowFullscreen = true;\n" +
                 "            iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';\n" +
                 "            iframe.classList.add('rounded-lg');\n" +
-                "            //append iframe to div\n" +
                 "            contentDiv.appendChild(iframe);\n" +
-                "            loadingScreen.classList.add('hidden');\n" +
+                "            iframe.onload = function () {\n" +
+                "                contentDiv.removeChild(loadingScreen);\n" +
+                "                loadingScreen.classList.add('hidden');\n" +
+                "            };\n" +
+                "            iframe.onerror = function () {\n" +
+                "                contentDiv.innerHTML = '';\n" +
+                "                welcomeMessageDiv.classList.remove('hidden');\n" +
+                "                loadingScreen.classList.add('hidden');\n" +
+                "            };\n" +
                 "        } catch (error) {\n" +
                 "            console.error('Error fetching content:', error);\n" +
                 "            loadingScreen.classList.add('hidden');\n" +
-                "        }\n" +
-                "    });\n" +
-                "\n" +
-                "    document.addEventListener('click', async (e) => {\n" +
-                "\n" +
-                "        if (e.target.tagName === 'A' && e.target.href.startsWith('./')) {\n" +
-                "            e.preventDefault();\n" +
-                "            loadingScreen.classList.remove('hidden');\n" +
-                "            try {\n" +
-                "                const response = await fetch(`./api/medium?url=${encodeURIComponent(e.target.href)}`);\n" +
-                "                if (!response.ok) {\n" +
-                "                    throw new Error('Network response was not ok');\n" +
-                "                }\n" +
-                "                contentDiv.innerHTML = await response.text();\n" +
-                "                loadingScreen.classList.add('hidden');\n" +
-                "            } catch (error) {\n" +
-                "                console.error('Error fetching content:', error);\n" +
-                "                loadingScreen.classList.add('hidden');\n" +
-                "            }\n" +
                 "        }\n" +
                 "    });\n" +
                 "</script>\n" +

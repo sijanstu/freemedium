@@ -8,32 +8,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
-
 @RestController
 @RequestMapping("/api")
 public class ApiController {
 
     @GetMapping("/search")
     public String search(@RequestParam(value = "query", defaultValue = "") String query) {
-        Connection.Response response = null;
-        String url = "";
-        if (query.contains("medium")) {
-            url = "https://medium-unlocker.onrender.com/unlock?url=" + query;
-        } else {
-            System.out.println("https://becominghuman.ai/" + query);
-            url = "https://becominghuman.ai/" + query;
-        }
+        String url;
         try {
-            Connection.Response response1 = null;
+            if (query.contains("medium")) {
+                url = "https://medium-unlocker.onrender.com/unlock?url=" + query;
+            } else {
+                System.out.println("https://becominghuman.ai/" + query);
+                url = "https://becominghuman.ai/" + query;
+            }
+            Connection.Response response1;
             response1 = Jsoup.connect(url).followRedirects(true).execute();
             String value = Parser.unescapeEntities(response1.body(), false);
             String value1 = value.replace("/unlock/?url=", "/api/search?query=https://medium.com");
             return value1.replaceAll("<script.*?</script>", "");
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            return "SORRY! Something went wrong.";
         }
-        return "error";
     }
 
 }
